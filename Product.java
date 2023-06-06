@@ -3,14 +3,12 @@ import java.util.ArrayList;
 public class Product {
     private String name;
     private double cost;
-    private String type;
     private ArrayList<Ingredient> ingredients;
     private ArrayList<Integer> quantIng;
 
     public Product(String name, double cost, String type, Ingredient[] ingredients, int[] quantIng) {
         this.name = name;
         this.cost = cost;
-        this.type = type;
         this.ingredients = new ArrayList<Ingredient>();
         for (Ingredient ing : ingredients) {
             this.ingredients.add(ing);
@@ -25,7 +23,7 @@ public class Product {
         System.out.println("- Lista de Ingredientes -");
         for (int i = 0; i > ingredients.size(); i++) {
             System.out.println("Ingrediente: " + ingredients.get(i).getName() + 
-                             "\nQuantidade: " + quantIng.get(i) + ingredients.get(i).getMed() +
+                             "\nQuantidade: " + quantIng.get(i) + ingredients.get(i).getMeasuringUnit() +
                              "\n- = - = - = - = - = - = -");
         }
     }
@@ -41,17 +39,5 @@ public class Product {
 
     public double getCost() {
         return this.cost;
-    }
-
-    public String getType() {
-        return this.type;
-    }
-
-    public Ingredient getIngrediente(int index) {
-        return this.ingredients.get(index);
-    }
-
-    public int getQuantIng(int index) {
-        return this.quantIng.get(index);
     }
 }
