@@ -18,12 +18,17 @@ public class Order {
         this.price += prod.getCost();
     }
 
+    public void removeProduct(Product prod) {
+        this.products.remove(prod);
+        this.price -= prod.getCost();
+    }
+
     public void printOrder() {
         System.out.println("- Conteúdo do Pedido -\n"
                          + "\nCliente: " + this.client.getName()
                          + "\nVendedor: " + this.cashier.getName()
                          + "\n\n- Lista de Produtos -\n");
-                         
+
         for (Product prod : this.products) {
             System.out.println("Produto nº " + products.indexOf(prod));
             prod.printProduct();
