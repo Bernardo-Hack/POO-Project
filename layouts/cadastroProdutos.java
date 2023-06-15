@@ -17,6 +17,8 @@ public class cadastroProdutos extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
 
 	/**
 	 * Launch the application.
@@ -46,26 +48,6 @@ public class cadastroProdutos extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Nome");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel.setBounds(20, 73, 46, 14);
-		contentPane.add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("Custo");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_1.setBounds(20, 111, 46, 14);
-		contentPane.add(lblNewLabel_1);
-		
-		textField = new JTextField();
-		textField.setBounds(64, 70, 215, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(64, 108, 215, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
-		
 		JLabel lblNewLabel_4 = new JLabel("Cadastro de produtos");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel_4.setBounds(257, 11, 192, 28);
@@ -73,32 +55,49 @@ public class cadastroProdutos extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(192, 192, 192));
-		panel.setBounds(10, 153, 269, 158);
+		panel.setBounds(10, 50, 294, 174);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Inserir ingrediente");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnNewButton.setBounds(46, 116, 153, 23);
-		panel.add(btnNewButton);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(113, 12, 146, 22);
-		panel.add(comboBox);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(113, 61, 146, 22);
-		panel.add(comboBox_1);
-		
-		JLabel lblNewLabel_3 = new JLabel("Quantidade");
-		lblNewLabel_3.setBounds(10, 65, 93, 14);
-		panel.add(lblNewLabel_3);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
-		
 		JLabel lblNewLabel_2 = new JLabel("Ingredientes");
-		lblNewLabel_2.setBounds(10, 15, 93, 14);
+		lblNewLabel_2.setBounds(10, 127, 93, 14);
 		panel.add(lblNewLabel_2);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		
+		JLabel lblNewLabel = new JLabel("Nome");
+		lblNewLabel.setBounds(10, 22, 46, 14);
+		panel.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		
+		JLabel lblNewLabel_1 = new JLabel("Custo");
+		lblNewLabel_1.setBounds(10, 60, 46, 14);
+		panel.add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(66, 58, 215, 20);
+		panel.add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField = new JTextField();
+		textField.setBounds(66, 20, 215, 20);
+		panel.add(textField);
+		textField.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(101, 96, 180, 20);
+		panel.add(textField_2);
+		textField_2.setColumns(10);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(101, 127, 180, 20);
+		panel.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JLabel lblNewLabel_3 = new JLabel("Quantidade");
+		lblNewLabel_3.setBounds(10, 97, 93, 14);
+		panel.add(lblNewLabel_3);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JButton btnNewButton_1 = new JButton("Cadastrar");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
