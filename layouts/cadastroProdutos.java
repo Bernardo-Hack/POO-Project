@@ -8,7 +8,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
 import java.awt.Color;
 import javax.swing.JButton;
 
