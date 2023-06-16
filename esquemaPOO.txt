@@ -1,0 +1,28 @@
+MANAGER(nao possui cadastro apenas login)
+ -> cadastrar, vizualizar, editar, excluir CLIENTE
+ -> cadastrar, vizualizar, editar, excluir CAIXA
+ -> cadastrar, vizualizar, editar, excluir PADEIRO
+ -> cadastrar, vizualizar, editar, excluir CONFEITEIRO
+ -> cadastrar, vizualizar, editar, excluir PEDIDO
+ -> cadastrar, vizualizar, editar, excluir INGREDIENTE
+ -> visualizar PRODUTOS ????
+
+
+CLIENTE (login)
+ -> visualizar PRODUTOS
+ -> fazer PEDIDO ????
+
+
+CAIXA (login)
+ -> cadastrar, visualizar PEDIDO
+ -> cadastrar CLIENTE
+
+
+PADEIRO (login) 
+ -> cadastrar, visualizar  PRODUTOS
+ -> editar INGREDIENTES
+
+
+CONFEITEIRO(login)
+ -> cadastrar, visualizar  PRODUTOS
+ -> editar INGREDIENTES
