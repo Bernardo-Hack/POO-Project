@@ -7,21 +7,21 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import DTO.UsuarioDTO;
+import DTO.ManagerDTO;
 
-public class UsuarioDAO {
+public class ManagerDAO {
     
     Connection conn;
 
-    public ResultSet autenticacaoUsuario(UsuarioDTO objusuariodto) {
+    public ResultSet autenticacaoUsuario(ManagerDTO objusuariodto) {
         conn = new ConexaoDAO().conectaBD();
 
         try {
             String sql = "select * from usuario where nome_usuario = ? and senha_usuario = ?";
             
             PreparedStatement pstm = conn.prepareStatement(sql);
-            pstm.setString(1, objusuariodto.getNome_usuario());
-            pstm.setString(2, objusuariodto.getSenha_ususario());
+            pstm.setString(1, objusuariodto.getName());
+            pstm.setString(2, objusuariodto.getSenha());
             
             ResultSet rs = pstm.executeQuery();
             return rs;
@@ -29,7 +29,7 @@ public class UsuarioDAO {
 
         } catch (SQLException erro) {
             // TODO: handle exception
-            JOptionPane.showMessageDialog(null, "UsuarioDAO: " + erro);
+            JOptionPane.showMessageDialog(null, "ManagerDAO: " + erro);
             return null;
         }
     }

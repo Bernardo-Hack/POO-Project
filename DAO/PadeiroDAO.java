@@ -8,19 +8,39 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import DTO.ClienteDTO;
+import DTO.PadeiroDTO;
 import DTO.PersonDTO;
 
-public class ClienteDAO extends PersonDAO{
+public class PadeiroDAO extends PersonDAO{
 
-    Connection conn; 
+    Connection conn;
     PreparedStatement pstm;
     ResultSet rs;
-    ArrayList<ClienteDTO> lista = new ArrayList<>();
+    ArrayList<PadeiroDTO> lista = new ArrayList<>();
 
-    //pesquisar cliente
-    public ArrayList<ClienteDTO> pesquisarCliente() {
-        String sql = "select * from cliente";
+    public ResultSet autenticacaoPadeiro(PadeiroDTO objpadeirodto) {
+        conn = new ConexaoDAO().conectaBD();
+
+        try {
+            String sql = "select * from padeiros where nome_usuario = ? and senha_usuario = ?";
+            
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, objpadeirodto.getName());
+            pstm.setString(2, objpadeirodto.getSenha());
+            
+            ResultSet rs = pstm.executeQuery();
+            return rs;
+            
+
+        } catch (SQLException erro) {
+            // TODO: handle exception
+            JOptionPane.showMessageDialog(null, "PadeiroDAO: " + erro);
+            return null;
+        }
+    }
+
+    public ArrayList<PadeiroDTO> pesquisarPadeiro() {
+        String sql = "select * from padeiros";
 
         conn = new ConexaoDAO().conectaBD();
 
@@ -30,14 +50,14 @@ public class ClienteDAO extends PersonDAO{
             rs = pstm.executeQuery();
 
             while (rs.next()) {
-                ClienteDTO objclienteDTO = new ClienteDTO(); //provavelmente vai dar erro
-                objclienteDTO.setId(rs.getInt("id"));
-                objclienteDTO.setName(rs.getString("nome"));
-                objclienteDTO.setCpf(rs.getString("cpf"));
-                objclienteDTO.setPhoneNumber(rs.getString("telefone"));
-                objclienteDTO.setSenha(rs.getString("senha"));
+                PadeiroDTO objpadeiroeDTO = new PadeiroDTO(); //provavelmente vai dar erro
+                objpadeiroeDTO.setId(rs.getInt("id"));
+                objpadeiroeDTO.setName(rs.getString("nome_usuario"));
+                objpadeiroeDTO.setCpf(rs.getString("cpf"));
+                objpadeiroeDTO.setPhoneNumber(rs.getString("telefone"));
+                objpadeiroeDTO.setSenha(rs.getString("senha_usuario"));
                 
-                lista.add(objclienteDTO);
+                lista.add(objpadeiroeDTO);
             }
             
         } catch (SQLException erro) {
@@ -45,13 +65,11 @@ public class ClienteDAO extends PersonDAO{
             JOptionPane.showMessageDialog(null, "ClienteDAO Pesquisar" + erro);
         }
         return lista;
-    }
+    } 
 
-    //cadastrar cliente
     @Override
     public void cadastrarPessoa(PersonDTO objpersondto) {
-
-        String sql = "insert into cliente (nome, cpf, telefone, senha) values (?, ?, ?, ?)";
+        String sql = "insert into padeiros (nome_usuario, cpf, telefone, senha_usuario) values (?, ?, ?, ?)";
 
         conn = new ConexaoDAO().conectaBD();
 
@@ -74,10 +92,10 @@ public class ClienteDAO extends PersonDAO{
         throw new UnsupportedOperationException("Unimplemented method 'cadastrarPessoa'");
     }
 
-    //alterar cliente
+
     @Override
     public void alterarPessoa(PersonDTO objpersondto) {
-        String sql = "update cliente set nome = ?, cpf = ?, telefone = ?, senha = ? where id = ?";
+        String sql = "update padeiros set nome_usuario = ?, cpf = ?, telefone = ?, senha_usuario = ? where id = ?";
         
         conn = new ConexaoDAO().conectaBD();
 
@@ -101,25 +119,28 @@ public class ClienteDAO extends PersonDAO{
         throw new UnsupportedOperationException("Unimplemented method 'alterarPessoa'");
     }
 
-    //excluir cliente
+
     @Override
     public void excluirPessoa(PersonDTO objpersondto) {
-
-        String sql = "delete from cliente where id = ?";
-
+        String sql = "update padeiros set nome_usuario = ?, cpf = ?, telefone = ?, senha_usuario = ? where id = ?";
+        
         conn = new ConexaoDAO().conectaBD();
 
         try {
 
             pstm = conn.prepareStatement(sql);
-            pstm.setInt(1, objpersondto.getId());
+            pstm.setString(1, objpersondto.getName());
+            pstm.setString(2, objpersondto.getCpf());
+            pstm.setString(3, objpersondto.getPhoneNumber());
+            pstm.setString(4, objpersondto.getSenha());
+            pstm.setInt(5, objpersondto.getId());
 
             pstm.execute();
             pstm.close();
             
         } catch (SQLException erro) {
             // TODO: handle exception
-            JOptionPane.showMessageDialog(null, "ClienteDAO Excluir" + erro);
+            JOptionPane.showMessageDialog(null, "ClienteDAO Alterar" + erro);
         }
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'excluirPessoa'");

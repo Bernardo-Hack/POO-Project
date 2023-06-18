@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class frmClienteVIEW extends JFrame{
+public class frmClienteAtendenteVIEW extends JFrame{
 
     private JPanel contentPane;
 	private JTextField txtNome;
@@ -36,7 +36,7 @@ public class frmClienteVIEW extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frmClienteVIEW frame = new frmClienteVIEW();
+					frmClienteAtendenteVIEW frame = new frmClienteAtendenteVIEW();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +49,7 @@ public class frmClienteVIEW extends JFrame{
 	 * Create the frame.
 	 */
 
-    public frmClienteVIEW() {
+    public frmClienteAtendenteVIEW() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 760, 703);
 		contentPane = new JPanel();
@@ -122,36 +122,9 @@ public class frmClienteVIEW extends JFrame{
             }
         });
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        btnNewButton.setBounds(218, 300, 155, 23);
+        btnNewButton.setBounds(220, 266, 153, 23);
         contentPane.add(btnNewButton);
-
-        //btn alterar
-        JButton btnAlterar = new JButton("Alterar");
-        btnAlterar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                alterarCliente();
-                listarValoresClientes();
-                limparCampos();
-            }
-        });
-        btnAlterar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        btnAlterar.setBounds(220, 266, 153, 23);
-        contentPane.add(btnAlterar);
-
-		//btn deletar
-		JButton btnDeletar = new JButton("Deletar");
-			btnDeletar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					excluirCliente();
-					listarValoresClientes();
-					limparCampos();
-				}
-			});
-			btnDeletar.setBounds(55, 299, 155, 23);
-			contentPane.add(btnDeletar);
-
-
-        
+     
         //input nome
 		txtNome = new JTextField();
 		txtNome.setBounds(158, 116, 215, 20);
@@ -232,17 +205,6 @@ public class frmClienteVIEW extends JFrame{
 			lblNewLabel_9.setBounds(484, 406, 95, 14);
 			contentPane.add(lblNewLabel_9);
 
-            JLabel lblNewLabel_10 = new JLabel("Código");
-			lblNewLabel_10.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblNewLabel_10.setBounds(57, 67, 61, 14);
-			contentPane.add(lblNewLabel_10);
-			
-			txtCodigo = new JTextField();
-            txtCodigo.setEnabled(false);
-			txtCodigo.setBounds(160, 65, 215, 20);
-			contentPane.add(txtCodigo);
-			txtCodigo.setColumns(10);
-
         }    
 
         private void listarValoresClientes() {
@@ -308,38 +270,4 @@ public class frmClienteVIEW extends JFrame{
             txtSenha.setText("");
             txtNome.requestFocus();
         }
-
-        private void alterarCliente() {
-            String nome, cpf, telefone, senha;
-            int id;
-
-            id = Integer.parseInt(txtCodigo.getText());
-            nome = txtNome.getText();
-            cpf = txtCpf.getText();
-            telefone = txtTelefone.getText();
-            senha = txtSenha.getText();
-
-
-            ClienteDTO objclientedto = new ClienteDTO();
-            objclientedto.setId(id);
-            objclientedto.setName(nome);
-            objclientedto.setCpf(cpf);
-            objclientedto.setPhoneNumber(telefone);
-            objclientedto.setSenha(senha);
-            
-            ClienteDAO objclientedao = new ClienteDAO();
-            objclientedao.alterarPessoa(objclientedto);
-        }
-
-        private void excluirCliente() {
-            int id;
-
-            id = Integer.parseInt(txtCodigo.getText());
-
-            ClienteDTO objclientedto = new ClienteDTO();
-            objclientedto.setId(id);
-
-            ClienteDAO objclientedao = new ClienteDAO();
-            objclientedao.excluirPessoa(objclientedto);
-       }
     }

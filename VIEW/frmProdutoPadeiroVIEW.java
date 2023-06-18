@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class frmProdutoVIEW extends JFrame {
+public class frmProdutoPadeiroVIEW extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
@@ -39,7 +39,7 @@ public class frmProdutoVIEW extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frmProdutoVIEW frame = new frmProdutoVIEW();
+					frmProdutoPadeiroVIEW frame = new frmProdutoPadeiroVIEW();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +51,7 @@ public class frmProdutoVIEW extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public frmProdutoVIEW() {
+	public frmProdutoPadeiroVIEW() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 760, 703);
@@ -72,7 +72,7 @@ public class frmProdutoVIEW extends JFrame {
 		JButton btnVoltar = new JButton("<-");
 			btnVoltar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					frmPrincipalManagerVIEW objfrmprincipalview = new frmPrincipalManagerVIEW();
+					frmPrincipalPadeiroVIEW objfrmprincipalview = new frmPrincipalPadeiroVIEW();
 					objfrmprincipalview.setVisible(true);
 
 					dispose();
@@ -91,7 +91,7 @@ public class frmProdutoVIEW extends JFrame {
 			}
 		});
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnCadastrar.setBounds(55, 222, 155, 23);
+		btnCadastrar.setBounds(55, 265, 155, 23);
 		contentPane.add(btnCadastrar);
 		
 		//btn listar
@@ -105,17 +105,6 @@ public class frmProdutoVIEW extends JFrame {
 		btnPesquisar.setBounds(57, 371, 106, 23);
 		contentPane.add(btnPesquisar);
 
-        //btn carregar campos
-        JButton btnCarregarCampos = new JButton("Carregar Campos");
-        btnCarregarCampos.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                carregarCampos();
-            }
-        });
-        btnCarregarCampos.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        btnCarregarCampos.setBounds(517, 630, 147, 23);
-        contentPane.add(btnCarregarCampos);
-
         //btn limpar campos
         JButton btnNewButton = new JButton("Limpar campos");
         btnNewButton.addActionListener(new ActionListener() {
@@ -124,33 +113,8 @@ public class frmProdutoVIEW extends JFrame {
             }
         });
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        btnNewButton.setBounds(220, 257, 155, 23);
+        btnNewButton.setBounds(220, 266, 153, 23);
         contentPane.add(btnNewButton);
-
-        //btn alterar
-        JButton btnAlterar = new JButton("Alterar");
-        btnAlterar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                alterarProduto();
-                listarValoresProdutos();
-                limparCampos();
-            }
-        });
-        btnAlterar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        btnAlterar.setBounds(220, 223, 153, 23);
-        contentPane.add(btnAlterar);
-
-		//btn deletar
-		JButton btnDeletar = new JButton("Deletar");
-			btnDeletar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					excluirProduto();
-					listarValoresProdutos();
-					limparCampos();
-				}
-			});
-			btnDeletar.setBounds(55, 256, 155, 23);
-			contentPane.add(btnDeletar);
 		
         //input nome
 		txtNome = new JTextField();
@@ -233,17 +197,6 @@ public class frmProdutoVIEW extends JFrame {
 			lblNewLabel_9.setBounds(484, 406, 95, 14);
 			contentPane.add(lblNewLabel_9);
 
-            JLabel lblNewLabel_10 = new JLabel("Código");
-			lblNewLabel_10.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblNewLabel_10.setBounds(57, 67, 61, 14);
-			contentPane.add(lblNewLabel_10);
-			
-			txtCodigo = new JTextField();
-            txtCodigo.setEnabled(false);
-			txtCodigo.setBounds(160, 65, 215, 20);
-			contentPane.add(txtCodigo);
-			txtCodigo.setColumns(10);
-
         }    
 
     private void listarValoresProdutos() {
@@ -271,16 +224,6 @@ public class frmProdutoVIEW extends JFrame {
             JOptionPane.showMessageDialog(null, "Listar Valores VIEW: " + erro);
         }
     }
-
-    private void carregarCampos() {
-        int setar = tabelaProduto.getSelectedRow();
-        
-        txtCodigo.setText(tabelaProduto.getModel().getValueAt(setar, 0).toString());
-        txtNome.setText(tabelaProduto.getModel().getValueAt(setar, 1).toString());
-        txtCusto.setText(tabelaProduto.getModel().getValueAt(setar, 2).toString());
-        txtQuantidade.setText(tabelaProduto.getModel().getValueAt(setar, 3).toString());
-        txtIngredientes.setText(tabelaProduto.getModel().getValueAt(setar, 4).toString());
-    }   
 
     private void cadastrarProduto(){
         String nome_produto, ingredientes_produto;
@@ -311,40 +254,5 @@ public class frmProdutoVIEW extends JFrame {
         txtNome.requestFocus();
     }
 
-    private void alterarProduto() {
-
-        String nome_produto, ingredientes_produto;
-        float custo_produto;
-        int quantidade_produto, id_produto;
-
-        id_produto = Integer.parseInt(txtCodigo.getText());
-        nome_produto = txtNome.getText();
-        ingredientes_produto = txtIngredientes.getText();
-        custo_produto = Float.parseFloat(txtCusto.getText());
-        quantidade_produto = Integer.parseInt(txtQuantidade.getText());
-
-		ProdutoDTO objprodutodto = new ProdutoDTO();
-		objprodutodto.setId_produto(id_produto);
-		objprodutodto.setNome_produto(nome_produto);
-		objprodutodto.setCusto_produto(custo_produto);
-		objprodutodto.setQuantidade_produto(quantidade_produto);
-		objprodutodto.setIngredientes_produto(ingredientes_produto);
-        
-        ProdutoDAO objprodutodao = new ProdutoDAO();
-        objprodutodao.alterarProduto(objprodutodto);
-
-    }
-
-	private void excluirProduto() {
-		int id_produto;
-
-		id_produto = Integer.parseInt(txtCodigo.getText());
-
-		ProdutoDTO objprodutodto = new ProdutoDTO();
-		objprodutodto.setId_produto(id_produto);
-
-		ProdutoDAO objprodutodao = new ProdutoDAO();
-		objprodutodao.excluirProduto(objprodutodto);
-	}
 }
 

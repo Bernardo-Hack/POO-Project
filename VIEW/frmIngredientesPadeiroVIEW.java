@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class frmIngredienteVIEW extends JFrame{
+public class frmIngredientesPadeiroVIEW extends JFrame{
 
     private JPanel contentPane;
 	private JTextField txtNome;
@@ -39,7 +39,7 @@ public class frmIngredienteVIEW extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frmIngredienteVIEW frame = new frmIngredienteVIEW();
+					frmIngredientesPadeiroVIEW frame = new frmIngredientesPadeiroVIEW();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +52,7 @@ public class frmIngredienteVIEW extends JFrame{
 	 * Create the frame.
 	 */
 
-     public frmIngredienteVIEW() {
+     public frmIngredientesPadeiroVIEW() {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 760, 703);
@@ -73,7 +73,7 @@ public class frmIngredienteVIEW extends JFrame{
 		JButton btnVoltar = new JButton("<-");
 			btnVoltar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					frmPrincipalManagerVIEW objfrmprincipalview = new frmPrincipalManagerVIEW();
+					frmPrincipalPadeiroVIEW objfrmprincipalview = new frmPrincipalPadeiroVIEW();
 					objfrmprincipalview.setVisible(true);
 
 					dispose();
@@ -81,19 +81,6 @@ public class frmIngredienteVIEW extends JFrame{
 			});
 			btnVoltar.setBounds(10, 11, 46, 23);
 			contentPane.add(btnVoltar);
-
-		//btn cadastrar
-		JButton btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-                cadastrarIngrediente();
-                listarValoresIngredientes();
-                limparCampos();
-			}
-		});
-		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnCadastrar.setBounds(55, 222, 155, 23);
-		contentPane.add(btnCadastrar);
 		
 		//btn listar
 		JButton btnPesquisar = new JButton("Listar");
@@ -125,7 +112,7 @@ public class frmIngredienteVIEW extends JFrame{
             }
         });
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        btnNewButton.setBounds(220, 257, 155, 23);
+        btnNewButton.setBounds(220, 223, 153, 23);
         contentPane.add(btnNewButton);
 
         //btn alterar
@@ -138,20 +125,8 @@ public class frmIngredienteVIEW extends JFrame{
             }
         });
         btnAlterar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        btnAlterar.setBounds(220, 223, 153, 23);
+        btnAlterar.setBounds(55, 222, 155, 23);
         contentPane.add(btnAlterar);
-
-		//btn deletar
-		JButton btnDeletar = new JButton("Deletar");
-        btnDeletar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                excluirIngrediente();
-                listarValoresIngredientes();
-                limparCampos();
-            }
-        });
-        btnDeletar.setBounds(55, 256, 155, 23);
-        contentPane.add(btnDeletar);
 
         //input nome
 		txtNome = new JTextField();

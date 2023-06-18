@@ -8,19 +8,41 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import DTO.ClienteDTO;
+
+import DTO.AtendenteDTO;
 import DTO.PersonDTO;
 
-public class ClienteDAO extends PersonDAO{
+public class AtendenteDAO extends PersonDAO{
 
     Connection conn; 
     PreparedStatement pstm;
     ResultSet rs;
-    ArrayList<ClienteDTO> lista = new ArrayList<>();
+    ArrayList<AtendenteDTO> lista = new ArrayList<>();
 
-    //pesquisar cliente
-    public ArrayList<ClienteDTO> pesquisarCliente() {
-        String sql = "select * from cliente";
+    public ResultSet autenticacaoUsuario(AtendenteDTO objatendentedto) {
+        conn = new ConexaoDAO().conectaBD();
+
+        try {
+            String sql = "select * from atendentes where nome = ? and senha = ?";
+            
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, objatendentedto.getName());
+            pstm.setString(2, objatendentedto.getSenha());
+            
+            ResultSet rs = pstm.executeQuery();
+            return rs;
+            
+
+        } catch (SQLException erro) {
+            // TODO: handle exception
+            JOptionPane.showMessageDialog(null, "AtendenteDAO: " + erro);
+            return null;
+        }
+    }
+
+
+    public ArrayList<AtendenteDTO> pesquisarAtendente() {
+        String sql = "select * from atendentes";
 
         conn = new ConexaoDAO().conectaBD();
 
@@ -30,28 +52,26 @@ public class ClienteDAO extends PersonDAO{
             rs = pstm.executeQuery();
 
             while (rs.next()) {
-                ClienteDTO objclienteDTO = new ClienteDTO(); //provavelmente vai dar erro
-                objclienteDTO.setId(rs.getInt("id"));
-                objclienteDTO.setName(rs.getString("nome"));
-                objclienteDTO.setCpf(rs.getString("cpf"));
-                objclienteDTO.setPhoneNumber(rs.getString("telefone"));
-                objclienteDTO.setSenha(rs.getString("senha"));
+                AtendenteDTO objatendenteDTO = new AtendenteDTO(); //provavelmente vai dar erro
+                objatendenteDTO.setId(rs.getInt("id"));
+                objatendenteDTO.setName(rs.getString("nome"));
+                objatendenteDTO.setCpf(rs.getString("cpf"));
+                objatendenteDTO.setPhoneNumber(rs.getString("telefone"));
+                objatendenteDTO.setSenha(rs.getString("senha"));
                 
-                lista.add(objclienteDTO);
+                lista.add(objatendenteDTO);
             }
             
         } catch (SQLException erro) {
             // TODO: handle exception
-            JOptionPane.showMessageDialog(null, "ClienteDAO Pesquisar" + erro);
+            JOptionPane.showMessageDialog(null, "AtendenteDAO Pesquisar" + erro);
         }
         return lista;
     }
 
-    //cadastrar cliente
     @Override
     public void cadastrarPessoa(PersonDTO objpersondto) {
-
-        String sql = "insert into cliente (nome, cpf, telefone, senha) values (?, ?, ?, ?)";
+        String sql = "insert into atendentes (nome, cpf, telefone, senha) values (?, ?, ?, ?)";
 
         conn = new ConexaoDAO().conectaBD();
 
@@ -68,16 +88,16 @@ public class ClienteDAO extends PersonDAO{
             
         } catch (SQLException erro) {
             // TODO: handle exception
-            JOptionPane.showMessageDialog(null, "ClienteDAO Cadastrar" + erro);
+            JOptionPane.showMessageDialog(null, "AtendenteDAO Cadastrar" + erro);
         }
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'cadastrarPessoa'");
     }
 
-    //alterar cliente
+
     @Override
     public void alterarPessoa(PersonDTO objpersondto) {
-        String sql = "update cliente set nome = ?, cpf = ?, telefone = ?, senha = ? where id = ?";
+        String sql = "update atendentes set nome = ?, cpf = ?, telefone = ?, senha = ? where id = ?";
         
         conn = new ConexaoDAO().conectaBD();
 
@@ -97,15 +117,15 @@ public class ClienteDAO extends PersonDAO{
             // TODO: handle exception
             JOptionPane.showMessageDialog(null, "ClienteDAO Alterar" + erro);
         }
+
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'alterarPessoa'");
     }
 
-    //excluir cliente
+
     @Override
     public void excluirPessoa(PersonDTO objpersondto) {
-
-        String sql = "delete from cliente where id = ?";
+        String sql = "delete from atendentes where id = ?";
 
         conn = new ConexaoDAO().conectaBD();
 

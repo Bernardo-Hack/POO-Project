@@ -4,14 +4,16 @@ public abstract class PersonDTO {
     protected String name;
     protected String cpf;
     protected String phoneNumber;
+    protected String senha;
+    private int id;
 
-
-    public PersonDTO(String name, String cpf, String phone) {
-        this.name = name;
-        this.cpf = cpf;
-        this.phoneNumber = phone;
-
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }    
 
     public String getName() {
         return this.name;
@@ -35,5 +37,13 @@ public abstract class PersonDTO {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

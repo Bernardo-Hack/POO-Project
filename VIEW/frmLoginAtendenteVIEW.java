@@ -1,14 +1,15 @@
 package VIEW;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
-import DAO.UsuarioDAO;
-import DTO.UsuarioDTO;
+import DAO.AtendenteDAO;
+import DTO.AtendenteDTO;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,22 +18,22 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionEvent; 
 
-public class frmLoginVIEW extends JFrame {
-
-	private JPanel contentPane;
+public class frmLoginAtendenteVIEW extends JFrame{
+    
+    private JPanel contentPane;
 	private JTextField txtNomeUsuario;
 	private JTextField txtSenhaUsuario;
 
-	/**
+    /**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frmLoginVIEW frame = new frmLoginVIEW();
+					frmLoginAtendenteVIEW frame = new frmLoginAtendenteVIEW();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,7 +45,7 @@ public class frmLoginVIEW extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public frmLoginVIEW() {
+	public frmLoginAtendenteVIEW() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -52,9 +53,23 @@ public class frmLoginVIEW extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+		//btn voltar
+		JButton btnVoltar = new JButton("<-");
+		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmInicioVIEW objfrminicioview = new frmInicioVIEW();
+					objfrminicioview.setVisible(true);
+
+					dispose();
+			}
+		});
+		btnVoltar.setBounds(368, 11, 56, 23);
+		contentPane.add(btnVoltar);
 		
-		JLabel lblNewLabel = new JLabel("Nome de ususario");
-		lblNewLabel.setBounds(10, 11, 122, 14);
+		JLabel lblNewLabel = new JLabel("Nome de usuario (atendente)");
+		lblNewLabel.setBounds(10, 11, 180, 14);
 		contentPane.add(lblNewLabel);
 		
 		txtNomeUsuario = new JTextField();
@@ -80,7 +95,7 @@ public class frmLoginVIEW extends JFrame {
 		contentPane.add(btnEntrarSistema);
 	}
 
-	private void Logar() {
+    private void Logar() {
 		try {
 
 			String nome_usuario, senha_ususario;
@@ -88,17 +103,17 @@ public class frmLoginVIEW extends JFrame {
 			nome_usuario = txtNomeUsuario.getText();
 			senha_ususario = txtSenhaUsuario.getText();
 
-			UsuarioDTO objusuariodto = new UsuarioDTO();
-			objusuariodto.setNome_usuario(nome_usuario);
-			objusuariodto.setSenha_ususario(senha_ususario);
+			AtendenteDTO objatendentedto = new AtendenteDTO();
+			objatendentedto.setName(nome_usuario);
+			objatendentedto.setSenha(senha_ususario);
 
-			UsuarioDAO objusuariodao = new UsuarioDAO();
-			ResultSet rsusuariodao = objusuariodao.autenticacaoUsuario(objusuariodto);
+			AtendenteDAO objatendentedao = new AtendenteDAO();
+			ResultSet rsusuariodao = objatendentedao.autenticacaoUsuario(objatendentedto);
 
 			if (rsusuariodao.next()) {
 				//chamar tela que quero abrir
-				frmPrincipalVIEW objfrmprincipalview = new frmPrincipalVIEW();
-				objfrmprincipalview.setVisible(true);
+				frmPrincipalAtendenteVIEW  objfrmprincipalatendenteview = new frmPrincipalAtendenteVIEW ();
+				objfrmprincipalatendenteview.setVisible(true);
 
 				dispose();
 

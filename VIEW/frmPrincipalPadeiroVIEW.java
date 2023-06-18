@@ -1,5 +1,5 @@
 package VIEW;
- 
+
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
@@ -11,9 +11,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class frmPrincipalVIEW extends JFrame {
-
-	private JPanel contentPane;
+public class frmPrincipalPadeiroVIEW extends JFrame{
+    
+    private JPanel contentPane;
 
 	/**
 	 * Launch the application.
@@ -22,7 +22,7 @@ public class frmPrincipalVIEW extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frmPrincipalVIEW frame = new frmPrincipalVIEW();
+					frmPrincipalPadeiroVIEW frame = new frmPrincipalPadeiroVIEW();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +34,7 @@ public class frmPrincipalVIEW extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public frmPrincipalVIEW() {
+	public frmPrincipalPadeiroVIEW() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -48,45 +48,44 @@ public class frmPrincipalVIEW extends JFrame {
 		lblNewLabel.setBounds(172, 29, 84, 14);
 		contentPane.add(lblNewLabel);
 
+		//btn log out
+		JButton btnLogout = new JButton("Log out");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmInicioVIEW objfrminicioview = new frmInicioVIEW();
+					objfrminicioview.setVisible(true);
+
+					dispose();
+			}
+		});
+		btnLogout.setBounds(331, 11, 93, 23);
+		contentPane.add(btnLogout);
+
 		//btn tela produtos
-		JButton btnDirecionaProduto = new JButton("Tela de produtos");
+		JButton btnDirecionaProduto = new JButton("Produtos");
 		btnDirecionaProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmProdutoVIEW objfrmpodutoview = new frmProdutoVIEW();
-				objfrmpodutoview.setVisible(true);
+				frmProdutoPadeiroVIEW objprodutopadeiroview = new frmProdutoPadeiroVIEW();
+				objprodutopadeiroview.setVisible(true);
 
 				dispose();
 			}
 		});
-		btnDirecionaProduto.setBounds(10, 73, 167, 23);
+		btnDirecionaProduto.setBounds(121, 72, 193, 23);
 		contentPane.add(btnDirecionaProduto);
 
-		//btn tela clientes
-		JButton btnTelaDeClientes = new JButton("Tela de clientes");
-		btnTelaDeClientes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmClienteVIEW objclienteview = new frmClienteVIEW();
-				objclienteview.setVisible(true);
-
-				dispose();
-			}
-		});
-		btnTelaDeClientes.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnTelaDeClientes.setBounds(10, 107, 167, 23);
-		contentPane.add(btnTelaDeClientes);
-
 		//btn tela ingredientes
-		JButton btnTelaDeIngredientes = new JButton("Tela de ingredientes");
+		JButton btnTelaDeIngredientes = new JButton("Ingredientes");
 		btnTelaDeIngredientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmIngredienteVIEW objfringredienteview = new frmIngredienteVIEW();
+				frmIngredientesPadeiroVIEW objfringredienteview = new frmIngredientesPadeiroVIEW();
 				objfringredienteview.setVisible(true);
 
 				dispose();
 			}
 		});
 		btnTelaDeIngredientes.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnTelaDeIngredientes.setBounds(10, 141, 167, 23);
+		btnTelaDeIngredientes.setBounds(121, 106, 193, 23);
 		contentPane.add(btnTelaDeIngredientes);
 	}
 

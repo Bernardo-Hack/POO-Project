@@ -8,8 +8,8 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import DAO.ClienteDAO;
-import DTO.ClienteDTO;
+import DAO.AtendenteDAO;
+import DTO.AtendenteDTO;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,21 +22,21 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class frmClienteVIEW extends JFrame{
+public class frmAtendenteVIEW extends JFrame{
 
     private JPanel contentPane;
 	private JTextField txtNome;
     private JTextField txtSenha;
 	private JTextField txtCpf;
 	private JTextField txtTelefone;
-    private final JTable tabelaCliente = new JTable();
+    private final JTable tabelaAtendente = new JTable();
     private JTextField txtCodigo; 
 
     public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frmClienteVIEW frame = new frmClienteVIEW();
+					frmAtendenteVIEW frame = new frmAtendenteVIEW();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +49,7 @@ public class frmClienteVIEW extends JFrame{
 	 * Create the frame.
 	 */
 
-    public frmClienteVIEW() {
+    public frmAtendenteVIEW() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 760, 703);
 		contentPane = new JPanel();
@@ -60,7 +60,7 @@ public class frmClienteVIEW extends JFrame{
 		
         // CADASTRO DE PRODUTOS FORM
 
-		JLabel lblNewLabel_4 = new JLabel("Clientes");
+		JLabel lblNewLabel_4 = new JLabel("Atendentes");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel_4.setBounds(257, 11, 192, 28);
 		contentPane.add(lblNewLabel_4);
@@ -83,8 +83,8 @@ public class frmClienteVIEW extends JFrame{
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                cadastrarCliente();
-                listarValoresClientes();
+                cadastrarAtendente();
+                listarValoresTendentes();
                 limparCampos();
 			}
 		});
@@ -97,7 +97,7 @@ public class frmClienteVIEW extends JFrame{
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 13));
         btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                listarValoresClientes();
+                listarValoresTendentes();
 			}
 		});
 		btnPesquisar.setBounds(57, 371, 106, 23);
@@ -129,8 +129,8 @@ public class frmClienteVIEW extends JFrame{
         JButton btnAlterar = new JButton("Alterar");
         btnAlterar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                alterarCliente();
-                listarValoresClientes();
+                alterarAtendente();
+                listarValoresTendentes();
                 limparCampos();
             }
         });
@@ -142,8 +142,8 @@ public class frmClienteVIEW extends JFrame{
 		JButton btnDeletar = new JButton("Deletar");
 			btnDeletar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					excluirCliente();
-					listarValoresClientes();
+					excluirAtendente();
+					listarValoresTendentes();
 					limparCampos();
 				}
 			});
@@ -196,7 +196,7 @@ public class frmClienteVIEW extends JFrame{
         contentPane.add(lblNewLabel_2_1);
 		
         //tabela
-        tabelaCliente.setModel(new DefaultTableModel(
+        tabelaAtendente.setModel(new DefaultTableModel(
 			new Object[][] {
 				{},
 			},
@@ -204,12 +204,12 @@ public class frmClienteVIEW extends JFrame{
 				"id", "nome", "cpf", "telefone", "senha"
 			}
 		));
-		tabelaCliente.getColumnModel().getColumn(4).setPreferredWidth(150);
-		tabelaCliente.setSurrendersFocusOnKeystroke(true);
-		tabelaCliente.setCellSelectionEnabled(true);
-		tabelaCliente.setColumnSelectionAllowed(true);
-		tabelaCliente.setBounds(57, 431, 607, 188);
-			getContentPane().add(tabelaCliente);
+		tabelaAtendente.getColumnModel().getColumn(4).setPreferredWidth(150);
+		tabelaAtendente.setSurrendersFocusOnKeystroke(true);
+		tabelaAtendente.setCellSelectionEnabled(true);
+		tabelaAtendente.setColumnSelectionAllowed(true);
+		tabelaAtendente.setBounds(57, 431, 607, 188);
+			getContentPane().add(tabelaAtendente);
 			
             //titulos acima da tabela
 			JLabel lblNewLabel_5 = new JLabel("Codigo");
@@ -245,14 +245,14 @@ public class frmClienteVIEW extends JFrame{
 
         }    
 
-        private void listarValoresClientes() {
+        private void listarValoresTendentes() {
             try {
-            ClienteDAO objclientedao = new ClienteDAO();
+            AtendenteDAO objatendentedao = new AtendenteDAO();
 
-            DefaultTableModel model = (DefaultTableModel) tabelaCliente.getModel();
+            DefaultTableModel model = (DefaultTableModel) tabelaAtendente.getModel();
             model.setNumRows(0);
 
-            ArrayList<ClienteDTO> lista = objclientedao.pesquisarCliente();
+            ArrayList<AtendenteDTO> lista = objatendentedao.pesquisarAtendente();
 
             for (int num = 0; num < lista.size(); num ++) {
                 model.addRow(new Object[] {
@@ -273,16 +273,16 @@ public class frmClienteVIEW extends JFrame{
     }
 
         private void carregarCampos() {
-            int setar = tabelaCliente.getSelectedRow();
+            int setar = tabelaAtendente.getSelectedRow();
         
-        txtCodigo.setText(tabelaCliente.getModel().getValueAt(setar, 0).toString());
-        txtNome.setText(tabelaCliente.getModel().getValueAt(setar, 1).toString());
-        txtCpf.setText(tabelaCliente.getModel().getValueAt(setar, 2).toString());
-        txtTelefone.setText(tabelaCliente.getModel().getValueAt(setar, 3).toString());
-        txtSenha.setText(tabelaCliente.getModel().getValueAt(setar, 4).toString());
+        txtCodigo.setText(tabelaAtendente.getModel().getValueAt(setar, 0).toString());
+        txtNome.setText(tabelaAtendente.getModel().getValueAt(setar, 1).toString());
+        txtCpf.setText(tabelaAtendente.getModel().getValueAt(setar, 2).toString());
+        txtTelefone.setText(tabelaAtendente.getModel().getValueAt(setar, 3).toString());
+        txtSenha.setText(tabelaAtendente.getModel().getValueAt(setar, 4).toString());
         }
 
-        private void cadastrarCliente() {
+        private void cadastrarAtendente() {
             String nome, cpf, telefone, senha;
 
             nome = txtNome.getText();
@@ -290,14 +290,14 @@ public class frmClienteVIEW extends JFrame{
             telefone = txtTelefone.getText();
             senha = txtSenha.getText();
 
-            ClienteDTO objclientedto = new ClienteDTO();
-            objclientedto.setName(nome);
-            objclientedto.setCpf(cpf);
-            objclientedto.setPhoneNumber(telefone);
-            objclientedto.setSenha(senha);
+            AtendenteDTO objatendentedto = new AtendenteDTO();
+            objatendentedto.setName(nome);
+            objatendentedto.setCpf(cpf);
+            objatendentedto.setPhoneNumber(telefone);
+            objatendentedto.setSenha(senha);
 
-            ClienteDAO objclientedao = new ClienteDAO();
-            objclientedao.cadastrarPessoa(objclientedto);
+            AtendenteDAO objatendentedao = new AtendenteDAO();
+            objatendentedao.cadastrarPessoa(objatendentedto);
         }
 
         private void limparCampos() {
@@ -309,7 +309,7 @@ public class frmClienteVIEW extends JFrame{
             txtNome.requestFocus();
         }
 
-        private void alterarCliente() {
+        private void alterarAtendente() {
             String nome, cpf, telefone, senha;
             int id;
 
@@ -320,26 +320,26 @@ public class frmClienteVIEW extends JFrame{
             senha = txtSenha.getText();
 
 
-            ClienteDTO objclientedto = new ClienteDTO();
-            objclientedto.setId(id);
-            objclientedto.setName(nome);
-            objclientedto.setCpf(cpf);
-            objclientedto.setPhoneNumber(telefone);
-            objclientedto.setSenha(senha);
+            AtendenteDTO objatendentedto = new AtendenteDTO();
+            objatendentedto.setId(id);
+            objatendentedto.setName(nome);
+            objatendentedto.setCpf(cpf);
+            objatendentedto.setPhoneNumber(telefone);
+            objatendentedto.setSenha(senha);
             
-            ClienteDAO objclientedao = new ClienteDAO();
-            objclientedao.alterarPessoa(objclientedto);
+            AtendenteDAO objatendentedao = new AtendenteDAO();
+            objatendentedao.alterarPessoa(objatendentedto);
         }
 
-        private void excluirCliente() {
+        private void excluirAtendente() {
             int id;
 
             id = Integer.parseInt(txtCodigo.getText());
 
-            ClienteDTO objclientedto = new ClienteDTO();
-            objclientedto.setId(id);
+            AtendenteDTO objatendentedto = new AtendenteDTO();
+            objatendentedto.setId(id);
 
-            ClienteDAO objclientedao = new ClienteDAO();
-            objclientedao.excluirPessoa(objclientedto);
+            AtendenteDAO objatendentedao = new AtendenteDAO();
+            objatendentedao.excluirPessoa(objatendentedto);
        }
     }
