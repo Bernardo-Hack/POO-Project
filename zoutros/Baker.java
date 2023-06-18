@@ -1,3 +1,4 @@
+package zoutros;
 public class Baker extends Person implements Interface_Storage{
     public Baker(String name, String cpf, String phone) {
         super(name, cpf, phone);
