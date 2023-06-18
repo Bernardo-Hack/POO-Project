@@ -255,26 +255,6 @@ public class frmIngredientesPadeiroVIEW extends JFrame{
         txtUnidade.setText(tabelaIngrediente.getModel().getValueAt(setar, 4).toString());
     }
 
-    private void cadastrarIngrediente() {
-        int quantidade;
-        String nome, unidade;
-        double value; 
-
-        nome = txtNome.getText();
-        value = Double.parseDouble(txtValor.getText());
-        quantidade = Integer.parseInt(txtQuantidade.getText());
-        unidade = txtUnidade.getText();
-
-        IngredienteDTO objingredientedto = new IngredienteDTO();
-        objingredientedto.setName(nome);
-        objingredientedto.setValue(value);
-        objingredientedto.setQuant(quantidade);
-        objingredientedto.setMeasuringUnit(unidade);
-
-        IngredienteDAO objingredientedao = new IngredienteDAO();
-        objingredientedao.cadastrarIngrediente(objingredientedto);
-    }
-
     private void limparCampos() {
         txtCodigo.setText("");
         txtNome.setText("");
@@ -305,15 +285,4 @@ public class frmIngredientesPadeiroVIEW extends JFrame{
         objingredientedao.alterarIngrediente(objingredientedto);
     }
 
-    private void excluirIngrediente() {
-        int id;
-
-        id = Integer.parseInt(txtCodigo.getSelectedText());
-
-        IngredienteDTO objingredientedto = new IngredienteDTO();
-        objingredientedto.setId(id);
-
-        IngredienteDAO objingredientedao = new IngredienteDAO();
-        objingredientedao.cadastrarIngrediente(objingredientedto);
-    }
 }
