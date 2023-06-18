@@ -2,11 +2,14 @@ package VIEW;
  
 import java.awt.EventQueue;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class frmPrincipalVIEW extends JFrame {
 
@@ -44,6 +47,47 @@ public class frmPrincipalVIEW extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel.setBounds(172, 29, 84, 14);
 		contentPane.add(lblNewLabel);
+
+		//btn tela produtos
+		JButton btnDirecionaProduto = new JButton("Tela de produtos");
+		btnDirecionaProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmProdutoVIEW objfrmpodutoview = new frmProdutoVIEW();
+				objfrmpodutoview.setVisible(true);
+
+				dispose();
+			}
+		});
+		btnDirecionaProduto.setBounds(10, 73, 167, 23);
+		contentPane.add(btnDirecionaProduto);
+
+		//btn tela clientes
+		JButton btnTelaDeClientes = new JButton("Tela de clientes");
+		btnTelaDeClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmClienteVIEW objclienteview = new frmClienteVIEW();
+				objclienteview.setVisible(true);
+
+				dispose();
+			}
+		});
+		btnTelaDeClientes.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnTelaDeClientes.setBounds(10, 107, 167, 23);
+		contentPane.add(btnTelaDeClientes);
+
+		//btn tela ingredientes
+		JButton btnTelaDeIngredientes = new JButton("Tela de ingredientes");
+		btnTelaDeIngredientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmIngredienteVIEW objfringredienteview = new frmIngredienteVIEW();
+				objfringredienteview.setVisible(true);
+
+				dispose();
+			}
+		});
+		btnTelaDeIngredientes.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnTelaDeIngredientes.setBounds(10, 141, 167, 23);
+		contentPane.add(btnTelaDeIngredientes);
 	}
 
 }

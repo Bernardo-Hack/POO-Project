@@ -8,7 +8,9 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import DAO.ClienteDAO;
 import DAO.ProdutoDAO;
+import DTO.ClienteDTO;
 import DTO.ProdutoDTO;
 
 import javax.swing.JLabel;
@@ -22,24 +24,20 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class frmProdutoVIEW extends JFrame {
+public class frmClienteVIEW extends JFrame{
 
-	private JPanel contentPane;
+    private JPanel contentPane;
 	private JTextField txtNome;
-	private JTextField txtCusto;
-	private JTextField txtQuantidade;
-    private final JTable tabelaProduto = new JTable();
-    private JTextField txtIngredientes;
-    private JTextField txtCodigo;
+	private JTextField txtCpf;
+	private JTextField txtTelefone;
+    private final JTable tabelaCliente = new JTable();
+    private JTextField txtCodigo; 
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frmProdutoVIEW frame = new frmProdutoVIEW();
+					frmClienteVIEW frame = new frmClienteVIEW();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,24 +49,24 @@ public class frmProdutoVIEW extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public frmProdutoVIEW() {
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public frmClienteVIEW() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 760, 703);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
+        setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
         // CADASTRO DE PRODUTOS FORM
 
-		JLabel lblNewLabel_4 = new JLabel("Produtos");
+		JLabel lblNewLabel_4 = new JLabel("Clientes");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel_4.setBounds(257, 11, 192, 28);
 		contentPane.add(lblNewLabel_4);
 
-		//btn voltar
+        //btn voltar
 		JButton btnVoltar = new JButton("<-");
 			btnVoltar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -81,25 +79,26 @@ public class frmProdutoVIEW extends JFrame {
 			btnVoltar.setBounds(10, 11, 46, 23);
 			contentPane.add(btnVoltar);
 
-		//btn cadastrar
+        
+        //btn cadastrar
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                cadastrarProduto();
-                listarValoresProdutos();
+                cadastrarCliente();
+                listarValoresClientes();
                 limparCampos();
 			}
 		});
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnCadastrar.setBounds(55, 222, 155, 23);
 		contentPane.add(btnCadastrar);
-		
-		//btn listar
+
+        //btn listar
 		JButton btnPesquisar = new JButton("Listar");
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 13));
         btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                listarValoresProdutos();
+                listarValoresClientes();
 			}
 		});
 		btnPesquisar.setBounds(57, 371, 106, 23);
@@ -131,8 +130,8 @@ public class frmProdutoVIEW extends JFrame {
         JButton btnAlterar = new JButton("Alterar");
         btnAlterar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                alterarProduto();
-                listarValoresProdutos();
+                alterarCliente();
+                listarValoresClientes();
                 limparCampos();
             }
         });
@@ -144,14 +143,16 @@ public class frmProdutoVIEW extends JFrame {
 		JButton btnDeletar = new JButton("Deletar");
 			btnDeletar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					excluirProduto();
-					listarValoresProdutos();
+					excluirCliente();
+					listarValoresClientes();
 					limparCampos();
 				}
 			});
 			btnDeletar.setBounds(55, 256, 155, 23);
 			contentPane.add(btnDeletar);
-		
+
+
+        
         //input nome
 		txtNome = new JTextField();
 		txtNome.setBounds(158, 116, 215, 20);
@@ -164,53 +165,42 @@ public class frmProdutoVIEW extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
         //input valor
-		txtCusto = new JTextField();
-		txtCusto.setBounds(158, 141, 215, 20);
-		contentPane.add(txtCusto);
-		txtCusto.setColumns(10);
+		txtCpf = new JTextField();
+		txtCpf.setBounds(158, 141, 215, 20);
+		contentPane.add(txtCpf);
+		txtCpf.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Custo");
+		JLabel lblNewLabel_1 = new JLabel("CPF");
 		lblNewLabel_1.setBounds(56, 143, 46, 14);
 		contentPane.add(lblNewLabel_1);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
         //input quantidade
-		txtQuantidade = new JTextField();
-		txtQuantidade.setBounds(158, 166, 215, 20);
-		contentPane.add(txtQuantidade);
-		txtQuantidade.setColumns(10);
+		txtTelefone = new JTextField();
+		txtTelefone.setBounds(158, 166, 215, 20);
+		contentPane.add(txtTelefone);
+		txtTelefone.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("Quantidade");
+		JLabel lblNewLabel_3 = new JLabel("Telefone");
 		lblNewLabel_3.setBounds(56, 168, 93, 14);
 		contentPane.add(lblNewLabel_3);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
-        //input ingredientes 
-		txtIngredientes = new JTextField();
-		txtIngredientes.setBounds(158, 191, 215, 20);
-		contentPane.add(txtIngredientes);
-		txtIngredientes.setColumns(10);
-		
-		JLabel lblNewLabel_2 = new JLabel("Ingredientes");
-		lblNewLabel_2.setBounds(55, 193, 93, 14);
-		contentPane.add(lblNewLabel_2);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
-
         //tabela
-        tabelaProduto.setModel(new DefaultTableModel(
+        tabelaCliente.setModel(new DefaultTableModel(
 			new Object[][] {
 				{},
 			},
 			new String[] {
-				"id", "nome", "valor", "quantidade", "ingredientes"
+				"id", "nome", "cpf", "telefone"
 			}
 		));
-		tabelaProduto.getColumnModel().getColumn(4).setPreferredWidth(150);
-		tabelaProduto.setSurrendersFocusOnKeystroke(true);
-		tabelaProduto.setCellSelectionEnabled(true);
-		tabelaProduto.setColumnSelectionAllowed(true);
-		tabelaProduto.setBounds(57, 431, 607, 188);
-			getContentPane().add(tabelaProduto);
+		tabelaCliente.getColumnModel().getColumn(4).setPreferredWidth(150);
+		tabelaCliente.setSurrendersFocusOnKeystroke(true);
+		tabelaCliente.setCellSelectionEnabled(true);
+		tabelaCliente.setColumnSelectionAllowed(true);
+		tabelaCliente.setBounds(57, 431, 607, 188);
+			getContentPane().add(tabelaCliente);
 			
             //titulos acima da tabela
 			JLabel lblNewLabel_5 = new JLabel("Codigo");
@@ -221,17 +211,13 @@ public class frmProdutoVIEW extends JFrame {
 			lblNewLabel_6.setBounds(162, 406, 61, 14);
 			contentPane.add(lblNewLabel_6);
 			
-			JLabel lblNewLabel_7 = new JLabel("Valor");
+			JLabel lblNewLabel_7 = new JLabel("Cpf");
 			lblNewLabel_7.setBounds(268, 406, 51, 14);
 			contentPane.add(lblNewLabel_7);
 			
-			JLabel lblNewLabel_8 = new JLabel("Quantidade");
+			JLabel lblNewLabel_8 = new JLabel("Telefone");
 			lblNewLabel_8.setBounds(375, 406, 77, 14);
 			contentPane.add(lblNewLabel_8);
-			
-			JLabel lblNewLabel_9 = new JLabel("Ingredientes");
-			lblNewLabel_9.setBounds(484, 406, 95, 14);
-			contentPane.add(lblNewLabel_9);
 
             JLabel lblNewLabel_10 = new JLabel("Código");
 			lblNewLabel_10.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -246,22 +232,21 @@ public class frmProdutoVIEW extends JFrame {
 
         }    
 
-    private void listarValoresProdutos() {
-        try {
-            ProdutoDAO objprodutodao = new ProdutoDAO();
+        private void listarValoresClientes() {
+            try {
+            ClienteDAO objclientedao = new ClienteDAO();
 
-            DefaultTableModel model = (DefaultTableModel) tabelaProduto.getModel();
+            DefaultTableModel model = (DefaultTableModel) tabelaCliente.getModel();
             model.setNumRows(0);
 
-            ArrayList<ProdutoDTO> lista = objprodutodao.pesquisarProduto();
+            ArrayList<ClienteDTO> lista = objclientedao.pesquisarCliente();
 
             for (int num = 0; num < lista.size(); num ++) {
                 model.addRow(new Object[] {
-                    lista.get(num).getId_produto(),
-                    lista.get(num).getNome_produto(),
-                    lista.get(num).getCusto_produto(),
-                    lista.get(num).getQuantidade_produto(),
-                    lista.get(num).getIngredientes_produto()
+                    lista.get(num).getId(),
+                    lista.get(num).getName(),
+                    lista.get(num).getCpf(),
+                    lista.get(num).getPhoneNumber(),
                 });
             }
 
@@ -269,82 +254,72 @@ public class frmProdutoVIEW extends JFrame {
         } catch (Exception erro) {
             // TODO: handle exception
             JOptionPane.showMessageDialog(null, "Listar Valores VIEW: " + erro);
+
+        }
+        }
+
+        private void carregarCampos() {
+            int setar = tabelaCliente.getSelectedRow();
+        
+        txtCodigo.setText(tabelaCliente.getModel().getValueAt(setar, 0).toString());
+        txtNome.setText(tabelaCliente.getModel().getValueAt(setar, 1).toString());
+        txtCpf.setText(tabelaCliente.getModel().getValueAt(setar, 2).toString());
+        txtTelefone.setText(tabelaCliente.getModel().getValueAt(setar, 3).toString());
+        }
+
+        private void cadastrarCliente() {
+            String nome, cpf, telefone;
+
+            nome = txtNome.getText();
+            cpf = txtCpf.getText();
+            telefone = txtTelefone.getText();
+
+            ClienteDTO objclientedto = new ClienteDTO(nome, cpf, telefone);
+            objclientedto.setName(nome);
+            objclientedto.setCpf(cpf);
+            objclientedto.setPhoneNumber(telefone);
+
+            ClienteDAO objclientedao = new ClienteDAO();
+            objclientedao.cadastrarCliente(objclientedto);
+        }
+
+        private void limparCampos() {
+            txtCodigo.setText("");
+            txtNome.setText("");
+            txtCpf.setText("");
+            txtTelefone.setText("");
+            txtNome.requestFocus();
+        }
+
+        private void alterarCliente() {
+            String nome, cpf, telefone;
+            int id;
+
+            id = Integer.parseInt(txtCodigo.getText());
+            nome = txtNome.getText();
+            cpf = txtCpf.getText();
+            telefone = txtTelefone.getText();
+
+
+            ClienteDTO objclientedto = new ClienteDTO(nome, cpf, telefone);
+            objclientedto.setId(id);
+            objclientedto.setName(nome);
+            objclientedto.setCpf(cpf);
+            objclientedto.setPhoneNumber(telefone);
+            
+            ClienteDAO objclientedao = new ClienteDAO();
+            objclientedao.alterarCliente(objclientedto);
+        }
+
+        private void excluirCliente() {
+            int id;
+
+            id = Integer.parseInt(txtCodigo.getText());
+
+            ClienteDTO objclientedto = new ClienteDTO("", "", "");
+            objclientedto.setId(id);
+
+            ClienteDAO objclientedao = new ClienteDAO();
+            objclientedao.excluirCliente(objclientedto);
         }
     }
-
-    private void carregarCampos() {
-        int setar = tabelaProduto.getSelectedRow();
-        
-        txtCodigo.setText(tabelaProduto.getModel().getValueAt(setar, 0).toString());
-        txtNome.setText(tabelaProduto.getModel().getValueAt(setar, 1).toString());
-        txtCusto.setText(tabelaProduto.getModel().getValueAt(setar, 2).toString());
-        txtQuantidade.setText(tabelaProduto.getModel().getValueAt(setar, 3).toString());
-        txtIngredientes.setText(tabelaProduto.getModel().getValueAt(setar, 4).toString());
-    }   
-
-    private void cadastrarProduto(){
-        String nome_produto, ingredientes_produto;
-        float custo_produto;
-        int quantidade_produto;
-
-        nome_produto = txtNome.getText();
-        ingredientes_produto = txtIngredientes.getText();
-        custo_produto = Float.parseFloat(txtCusto.getText());
-        quantidade_produto = Integer.parseInt(txtQuantidade.getText());
-
-        ProdutoDTO objprodutodto = new ProdutoDTO();
-        objprodutodto.setNome_produto(nome_produto);
-        objprodutodto.setIngredientes_produto(ingredientes_produto);
-        objprodutodto.setCusto_produto(custo_produto);
-        objprodutodto.setQuantidade_produto(quantidade_produto);
-
-        ProdutoDAO objprodutodao = new ProdutoDAO();
-        objprodutodao.cadastrarProduto(objprodutodto);
-    }
-
-    private void limparCampos() { 
-        txtCodigo.setText("");
-        txtNome.setText("");
-        txtCusto.setText("");
-        txtQuantidade.setText("");
-        txtIngredientes.setText("");
-        txtNome.requestFocus();
-    }
-
-    private void alterarProduto() {
-
-        String nome_produto, ingredientes_produto;
-        float custo_produto;
-        int quantidade_produto, id_produto;
-
-        id_produto = Integer.parseInt(txtCodigo.getText());
-        nome_produto = txtNome.getText();
-        ingredientes_produto = txtIngredientes.getText();
-        custo_produto = Float.parseFloat(txtCusto.getText());
-        quantidade_produto = Integer.parseInt(txtQuantidade.getText());
-
-		ProdutoDTO objprodutodto = new ProdutoDTO();
-		objprodutodto.setId_produto(id_produto);
-		objprodutodto.setNome_produto(nome_produto);
-		objprodutodto.setCusto_produto(custo_produto);
-		objprodutodto.setQuantidade_produto(quantidade_produto);
-		objprodutodto.setIngredientes_produto(ingredientes_produto);
-        
-        ProdutoDAO objprodutodao = new ProdutoDAO();
-        objprodutodao.alterarProduto(objprodutodto);
-
-    }
-
-	private void excluirProduto() {
-		int id_produto;
-
-		id_produto = Integer.parseInt(txtCodigo.getText());
-
-		ProdutoDTO objprodutodto = new ProdutoDTO();
-		objprodutodto.setId_produto(id_produto);
-
-		ProdutoDAO objprodutodao = new ProdutoDAO();
-		objprodutodao.excluirProduto(objprodutodto);
-	}
-}
-

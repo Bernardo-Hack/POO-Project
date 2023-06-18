@@ -8,8 +8,8 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import DAO.ProdutoDAO;
-import DTO.ProdutoDTO;
+import DAO.IngredienteDAO;
+import DTO.IngredienteDTO;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,38 +22,39 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class frmProdutoVIEW extends JFrame {
+public class frmIngredienteVIEW extends JFrame{
 
-	private JPanel contentPane;
+    private JPanel contentPane;
 	private JTextField txtNome;
-	private JTextField txtCusto;
+	private JTextField txtValor;
 	private JTextField txtQuantidade;
-    private final JTable tabelaProduto = new JTable();
-    private JTextField txtIngredientes;
+    private final JTable tabelaIngrediente = new JTable();
+    private JTextField txtUnidade;
     private JTextField txtCodigo;
-
-	/**
+    
+    /**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frmProdutoVIEW frame = new frmProdutoVIEW();
+					frmIngredienteVIEW frame = new frmIngredienteVIEW();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+    }
 
-	/**
+    /**
 	 * Create the frame.
 	 */
-	public frmProdutoVIEW() {
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+     public frmIngredienteVIEW() {
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 760, 703);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -63,12 +64,12 @@ public class frmProdutoVIEW extends JFrame {
 		
         // CADASTRO DE PRODUTOS FORM
 
-		JLabel lblNewLabel_4 = new JLabel("Produtos");
+		JLabel lblNewLabel_4 = new JLabel("Ingredientes");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel_4.setBounds(257, 11, 192, 28);
 		contentPane.add(lblNewLabel_4);
 
-		//btn voltar
+        //btn voltar
 		JButton btnVoltar = new JButton("<-");
 			btnVoltar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -85,8 +86,8 @@ public class frmProdutoVIEW extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                cadastrarProduto();
-                listarValoresProdutos();
+                cadastrarIngrediente();
+                listarValoresIngredientes();
                 limparCampos();
 			}
 		});
@@ -99,7 +100,7 @@ public class frmProdutoVIEW extends JFrame {
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 13));
         btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                listarValoresProdutos();
+                listarValoresIngredientes();
 			}
 		});
 		btnPesquisar.setBounds(57, 371, 106, 23);
@@ -131,8 +132,8 @@ public class frmProdutoVIEW extends JFrame {
         JButton btnAlterar = new JButton("Alterar");
         btnAlterar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                alterarProduto();
-                listarValoresProdutos();
+                alterarIngrediente();
+                listarValoresIngredientes();
                 limparCampos();
             }
         });
@@ -142,16 +143,16 @@ public class frmProdutoVIEW extends JFrame {
 
 		//btn deletar
 		JButton btnDeletar = new JButton("Deletar");
-			btnDeletar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					excluirProduto();
-					listarValoresProdutos();
-					limparCampos();
-				}
-			});
-			btnDeletar.setBounds(55, 256, 155, 23);
-			contentPane.add(btnDeletar);
-		
+        btnDeletar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                excluirIngrediente();
+                listarValoresIngredientes();
+                limparCampos();
+            }
+        });
+        btnDeletar.setBounds(55, 256, 155, 23);
+        contentPane.add(btnDeletar);
+
         //input nome
 		txtNome = new JTextField();
 		txtNome.setBounds(158, 116, 215, 20);
@@ -164,10 +165,10 @@ public class frmProdutoVIEW extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
         //input valor
-		txtCusto = new JTextField();
-		txtCusto.setBounds(158, 141, 215, 20);
-		contentPane.add(txtCusto);
-		txtCusto.setColumns(10);
+		txtValor = new JTextField();
+		txtValor.setBounds(158, 141, 215, 20);
+		contentPane.add(txtValor);
+		txtValor.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Custo");
 		lblNewLabel_1.setBounds(56, 143, 46, 14);
@@ -185,11 +186,11 @@ public class frmProdutoVIEW extends JFrame {
 		contentPane.add(lblNewLabel_3);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
-        //input ingredientes 
-		txtIngredientes = new JTextField();
-		txtIngredientes.setBounds(158, 191, 215, 20);
-		contentPane.add(txtIngredientes);
-		txtIngredientes.setColumns(10);
+        //input unidade 
+		txtUnidade = new JTextField();
+		txtUnidade.setBounds(158, 191, 215, 20);
+		contentPane.add(txtUnidade);
+		txtUnidade.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Ingredientes");
 		lblNewLabel_2.setBounds(55, 193, 93, 14);
@@ -197,7 +198,7 @@ public class frmProdutoVIEW extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
 
         //tabela
-        tabelaProduto.setModel(new DefaultTableModel(
+        tabelaIngrediente.setModel(new DefaultTableModel(
 			new Object[][] {
 				{},
 			},
@@ -205,12 +206,12 @@ public class frmProdutoVIEW extends JFrame {
 				"id", "nome", "valor", "quantidade", "ingredientes"
 			}
 		));
-		tabelaProduto.getColumnModel().getColumn(4).setPreferredWidth(150);
-		tabelaProduto.setSurrendersFocusOnKeystroke(true);
-		tabelaProduto.setCellSelectionEnabled(true);
-		tabelaProduto.setColumnSelectionAllowed(true);
-		tabelaProduto.setBounds(57, 431, 607, 188);
-			getContentPane().add(tabelaProduto);
+		tabelaIngrediente.getColumnModel().getColumn(4).setPreferredWidth(150);
+		tabelaIngrediente.setSurrendersFocusOnKeystroke(true);
+		tabelaIngrediente.setCellSelectionEnabled(true);
+		tabelaIngrediente.setColumnSelectionAllowed(true);
+		tabelaIngrediente.setBounds(57, 431, 607, 188);
+			getContentPane().add(tabelaIngrediente);
 			
             //titulos acima da tabela
 			JLabel lblNewLabel_5 = new JLabel("Codigo");
@@ -243,108 +244,101 @@ public class frmProdutoVIEW extends JFrame {
 			txtCodigo.setBounds(160, 65, 215, 20);
 			contentPane.add(txtCodigo);
 			txtCodigo.setColumns(10);
+    }
 
-        }    
-
-    private void listarValoresProdutos() {
+    private void listarValoresIngredientes(){
         try {
-            ProdutoDAO objprodutodao = new ProdutoDAO();
+            IngredienteDAO objingredientedao = new IngredienteDAO();
 
-            DefaultTableModel model = (DefaultTableModel) tabelaProduto.getModel();
+            DefaultTableModel model = (DefaultTableModel) tabelaIngrediente.getModel();
             model.setNumRows(0);
-
-            ArrayList<ProdutoDTO> lista = objprodutodao.pesquisarProduto();
+            
+            ArrayList<IngredienteDTO> lista = objingredientedao.pesquisarIngrediente();
 
             for (int num = 0; num < lista.size(); num ++) {
                 model.addRow(new Object[] {
-                    lista.get(num).getId_produto(),
-                    lista.get(num).getNome_produto(),
-                    lista.get(num).getCusto_produto(),
-                    lista.get(num).getQuantidade_produto(),
-                    lista.get(num).getIngredientes_produto()
+                    lista.get(num).getId(),
+                    lista.get(num).getName(),
+                    lista.get(num).getValue(),
+                    lista.get(num).getQuant(),
+                    lista.get(num).getMeasuringUnit()
                 });
             }
-
-            
         } catch (Exception erro) {
             // TODO: handle exception
             JOptionPane.showMessageDialog(null, "Listar Valores VIEW: " + erro);
         }
     }
 
-    private void carregarCampos() {
-        int setar = tabelaProduto.getSelectedRow();
-        
-        txtCodigo.setText(tabelaProduto.getModel().getValueAt(setar, 0).toString());
-        txtNome.setText(tabelaProduto.getModel().getValueAt(setar, 1).toString());
-        txtCusto.setText(tabelaProduto.getModel().getValueAt(setar, 2).toString());
-        txtQuantidade.setText(tabelaProduto.getModel().getValueAt(setar, 3).toString());
-        txtIngredientes.setText(tabelaProduto.getModel().getValueAt(setar, 4).toString());
-    }   
+    private void carregarCampos(){
+        int setar = tabelaIngrediente.getSelectedRow();
 
-    private void cadastrarProduto(){
-        String nome_produto, ingredientes_produto;
-        float custo_produto;
-        int quantidade_produto;
-
-        nome_produto = txtNome.getText();
-        ingredientes_produto = txtIngredientes.getText();
-        custo_produto = Float.parseFloat(txtCusto.getText());
-        quantidade_produto = Integer.parseInt(txtQuantidade.getText());
-
-        ProdutoDTO objprodutodto = new ProdutoDTO();
-        objprodutodto.setNome_produto(nome_produto);
-        objprodutodto.setIngredientes_produto(ingredientes_produto);
-        objprodutodto.setCusto_produto(custo_produto);
-        objprodutodto.setQuantidade_produto(quantidade_produto);
-
-        ProdutoDAO objprodutodao = new ProdutoDAO();
-        objprodutodao.cadastrarProduto(objprodutodto);
+        txtCodigo.setText(tabelaIngrediente.getModel().getValueAt(setar, 0).toString());
+        txtNome.setText(tabelaIngrediente.getModel().getValueAt(setar, 1).toString());
+        txtValor.setText(tabelaIngrediente.getModel().getValueAt(setar, 2).toString());
+        txtQuantidade.setText(tabelaIngrediente.getModel().getValueAt(setar, 3).toString());
+        txtUnidade.setText(tabelaIngrediente.getModel().getValueAt(setar, 4).toString());
     }
 
-    private void limparCampos() { 
+    private void cadastrarIngrediente() {
+        int quantidade;
+        String nome, unidade;
+        double value; 
+
+        nome = txtNome.getText();
+        value = Double.parseDouble(txtValor.getText());
+        quantidade = Integer.parseInt(txtQuantidade.getText());
+        unidade = txtUnidade.getText();
+
+        IngredienteDTO objingredientedto = new IngredienteDTO();
+        objingredientedto.setName(nome);
+        objingredientedto.setValue(value);
+        objingredientedto.setQuant(quantidade);
+        objingredientedto.setMeasuringUnit(unidade);
+
+        IngredienteDAO objingredientedao = new IngredienteDAO();
+        objingredientedao.cadastrarIngrediente(objingredientedto);
+    }
+
+    private void limparCampos() {
         txtCodigo.setText("");
         txtNome.setText("");
-        txtCusto.setText("");
+        txtValor.setText("");
         txtQuantidade.setText("");
-        txtIngredientes.setText("");
-        txtNome.requestFocus();
+        txtUnidade.setText("");
     }
 
-    private void alterarProduto() {
+    private void alterarIngrediente() {
+        int quantidade, id;
+        String nome, unidade;
+        double value; 
 
-        String nome_produto, ingredientes_produto;
-        float custo_produto;
-        int quantidade_produto, id_produto;
-
-        id_produto = Integer.parseInt(txtCodigo.getText());
-        nome_produto = txtNome.getText();
-        ingredientes_produto = txtIngredientes.getText();
-        custo_produto = Float.parseFloat(txtCusto.getText());
-        quantidade_produto = Integer.parseInt(txtQuantidade.getText());
-
-		ProdutoDTO objprodutodto = new ProdutoDTO();
-		objprodutodto.setId_produto(id_produto);
-		objprodutodto.setNome_produto(nome_produto);
-		objprodutodto.setCusto_produto(custo_produto);
-		objprodutodto.setQuantidade_produto(quantidade_produto);
-		objprodutodto.setIngredientes_produto(ingredientes_produto);
+        id = Integer.parseInt(txtCodigo.getText());
+        nome = txtNome.getText();
+        value = Double.parseDouble(txtValor.getText());
+        quantidade = Integer.parseInt(txtQuantidade.getText());
+        unidade = txtUnidade.getText();
         
-        ProdutoDAO objprodutodao = new ProdutoDAO();
-        objprodutodao.alterarProduto(objprodutodto);
+        IngredienteDTO objingredientedto = new IngredienteDTO();
+        objingredientedto.setId(id);
+        objingredientedto.setName(nome);
+        objingredientedto.setValue(value);
+        objingredientedto.setQuant(quantidade);
+        objingredientedto.setMeasuringUnit(unidade);
 
+        IngredienteDAO objingredientedao = new IngredienteDAO();
+        objingredientedao.alterarIngrediente(objingredientedto);
     }
 
-	private void excluirProduto() {
-		int id_produto;
+    private void excluirIngrediente() {
+        int id;
 
-		id_produto = Integer.parseInt(txtCodigo.getText());
+        id = Integer.parseInt(txtCodigo.getSelectedText());
 
-		ProdutoDTO objprodutodto = new ProdutoDTO();
-		objprodutodto.setId_produto(id_produto);
+        IngredienteDTO objingredientedto = new IngredienteDTO();
+        objingredientedto.setId(id);
 
-		ProdutoDAO objprodutodao = new ProdutoDAO();
-		objprodutodao.excluirProduto(objprodutodto);
-	}
+        IngredienteDAO objingredientedao = new IngredienteDAO();
+        objingredientedao.cadastrarIngrediente(objingredientedto);
+    }
 }
-

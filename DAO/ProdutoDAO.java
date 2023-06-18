@@ -39,7 +39,7 @@ public class ProdutoDAO {
         }
     }
 
-    public ArrayList<ProdutoDTO> pesquisarFuncionario() {
+    public ArrayList<ProdutoDTO> pesquisarProduto() {
         String sql = "select * from produtos";
 
         conn = new ConexaoDAO().conectaBD();
