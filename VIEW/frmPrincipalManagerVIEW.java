@@ -45,7 +45,7 @@ public class frmPrincipalManagerVIEW extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Tela principal");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel.setBounds(172, 29, 84, 14);
+		lblNewLabel.setBounds(172, 29, 100, 14);
 		contentPane.add(lblNewLabel);
 		
 		JButton btnDirecionaProduto = new JButton("Produtos");
