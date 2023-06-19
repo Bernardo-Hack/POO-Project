@@ -84,6 +84,7 @@ public class IngredienteDAO {
 
     public void excluirIngrediente (IngredienteDTO objingredientedto) {
         String sql = "delete from ingrediente where id = ?";
+
         conn = new ConexaoDAO().conectaBD();
 
         try {

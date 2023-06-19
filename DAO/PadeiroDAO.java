@@ -122,18 +122,14 @@ public class PadeiroDAO extends PersonDAO{
 
     @Override
     public void excluirPessoa(PersonDTO objpersondto) {
-        String sql = "update padeiros set nome_usuario = ?, cpf = ?, telefone = ?, senha_usuario = ? where id = ?";
+        String sql = "delete from padeiros where id = ?";
         
         conn = new ConexaoDAO().conectaBD();
 
         try {
 
             pstm = conn.prepareStatement(sql);
-            pstm.setString(1, objpersondto.getName());
-            pstm.setString(2, objpersondto.getCpf());
-            pstm.setString(3, objpersondto.getPhoneNumber());
-            pstm.setString(4, objpersondto.getSenha());
-            pstm.setInt(5, objpersondto.getId());
+            pstm.setInt(1, objpersondto.getId());
 
             pstm.execute();
             pstm.close();

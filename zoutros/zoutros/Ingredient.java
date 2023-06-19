@@ -1,3 +1,4 @@
+package zoutros;
 public class Ingredient {
     private String name;
     private double value; // value se refere ao custo de compra do ingrediente(ex.: R$50/L ou R$50/Kg)

@@ -1,4 +1,4 @@
-package zlayouts;
+package zoutros;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,7 +12,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class cadastroCashier extends JFrame {
+public class cadastroCliente extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -26,7 +26,7 @@ public class cadastroCashier extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					cadastroCashier frame = new cadastroCashier();
+					cadastroCliente frame = new cadastroCliente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,7 +38,7 @@ public class cadastroCashier extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public cadastroCashier() {
+	public cadastroCliente() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 702, 465);
 		contentPane = new JPanel();
@@ -77,12 +77,12 @@ public class cadastroCashier extends JFrame {
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
-		JLabel lblCadastro = new JLabel("Cadastro de Caixa");
+		JLabel lblCadastro = new JLabel("Cadastro de cliente");
 		lblCadastro.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblCadastro.setBounds(252, 11, 178, 21);
 		contentPane.add(lblCadastro);
 		
-		JButton btnNewButton = new JButton("Cadastrar Caixa");
+		JButton btnNewButton = new JButton("Cadastrar cliente");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}

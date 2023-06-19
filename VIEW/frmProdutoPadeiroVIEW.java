@@ -106,7 +106,7 @@ public class frmProdutoPadeiroVIEW extends JFrame {
 		contentPane.add(btnPesquisar);
 
         //btn limpar campos
-        JButton btnNewButton = new JButton("Limpar campos");
+/*         JButton btnNewButton = new JButton("Limpar campos");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 limparCampos();
@@ -114,7 +114,7 @@ public class frmProdutoPadeiroVIEW extends JFrame {
         });
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
         btnNewButton.setBounds(220, 266, 153, 23);
-        contentPane.add(btnNewButton);
+        contentPane.add(btnNewButton);*/
 		
         //input nome
 		txtNome = new JTextField();

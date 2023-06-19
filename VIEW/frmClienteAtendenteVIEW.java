@@ -114,7 +114,7 @@ public class frmClienteAtendenteVIEW extends JFrame{
         btnCarregarCampos.setBounds(517, 630, 147, 23);
         contentPane.add(btnCarregarCampos);
 
-        //btn limpar campos
+/*         //btn limpar campos
         JButton btnNewButton = new JButton("Limpar campos");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -123,7 +123,7 @@ public class frmClienteAtendenteVIEW extends JFrame{
         });
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
         btnNewButton.setBounds(220, 266, 153, 23);
-        contentPane.add(btnNewButton);
+        contentPane.add(btnNewButton);*/
      
         //input nome
 		txtNome = new JTextField();

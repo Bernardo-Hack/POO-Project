@@ -1,3 +1,4 @@
+package zoutros;
 public abstract class Person {
     private String name;
     private String cpf;

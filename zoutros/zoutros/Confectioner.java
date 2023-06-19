@@ -1,3 +1,4 @@
+package zoutros;
 public class Confectioner extends Person implements Interface_Storage {
     public Confectioner(String name, String cpf, String phone) {
         super(name, cpf, phone);

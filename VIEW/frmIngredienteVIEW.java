@@ -333,12 +333,12 @@ public class frmIngredienteVIEW extends JFrame{
     private void excluirIngrediente() {
         int id;
 
-        id = Integer.parseInt(txtCodigo.getSelectedText());
+        id = Integer.parseInt(txtCodigo.getText());
 
         IngredienteDTO objingredientedto = new IngredienteDTO();
         objingredientedto.setId(id);
 
         IngredienteDAO objingredientedao = new IngredienteDAO();
-        objingredientedao.cadastrarIngrediente(objingredientedto);
+        objingredientedao.excluirIngrediente(objingredientedto);
     }
 }
